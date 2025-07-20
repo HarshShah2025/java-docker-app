@@ -1,5 +1,7 @@
 # java-qoutes--app
 
+![App Screenshot](image.png)
+
 # Java Motivational Quotes Appi
 
 This project is a simple Java-based HTTP server that serves random motivational quotes via a REST API. The quotes are externalized to a `quotes.txt` file for easy customization.
@@ -64,9 +66,8 @@ java-quotes-app/
 ## Customizing Quotes
 To customize the quotes, edit `quotes.txt` and restart the application. Each quote should be on a new line.
 
-## 🖼️ Preview
 
-![App Screenshot](image.png)
+
 
 
 
