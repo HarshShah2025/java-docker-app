@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Java Quote API – Containerized with Docker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      text-align: center;
+      max-width: 800px;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #00e6e6;
+    }
+
+    .quote-box {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #f1f1f1;
+      min-height: 100px;
+      margin-bottom: 2rem;
+      transition: opacity 0.4s ease;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      background-color: #00e6e6;
+      color: #1b1b1b;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+      transform: scale(1.05);
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Java Quote API – Containerized with Docker</h1>
+    <div class="quote-box fade-in" id="quoteBox">Loading...</div>
+    <div class="buttons">
+      <button onclick="prevQuote()">Previous</button>
+      <button onclick="nextQuote()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    let history = [];
+    let index = -1;
+
+    async function fetchQuote() {
+      const res = await fetch('/api');
+      const data = await res.json();
+      return data.quote;
+    }
+
+    function showQuote(quote) {
+      const box = document.getElementById('quoteBox');
+      box.classList.remove("fade-in");
+      box.classList.add("fade-out");
+      setTimeout(() => {
+        box.innerText = `"${quote}"`;
+        box.classList.remove("fade-out");
+        box.classList.add("fade-in");
+      }, 300);
+    }
+
+    async function nextQuote() {
+      const quote = await fetchQuote();
+      history.push(quote);
+      index = history.length - 1;
+      showQuote(quote);
+    }
+
+    function prevQuote() {
+      if (index > 0) {
+        index--;
+        showQuote(history[index]);
+      }
+    }
+
+    // Load first quote
+    nextQuote();
+  </script>
+</body>
+</html>
+
