@@ -66,7 +66,7 @@ To customize the quotes, edit `quotes.txt` and restart the application. Each quo
 
 ## 🖼️ Preview
 
-![App Screenshot](screenshot.png)
+![App Screenshot](image.png)
 
 
 
